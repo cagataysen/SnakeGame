@@ -1,7 +1,7 @@
 import turtle
 import os
 import time
-
+import random
 delay = 0.1 
 
 
@@ -11,7 +11,7 @@ window = turtle.Screen()
 window.title("Snake Game by @cagataysen")
 window.bgcolor("green")
 window.setup(width=600, height=600)
-window.tracer(1) #turns on/off animation
+window.tracer(0) #turns on/off animation
 
 # Snake head
 
@@ -22,6 +22,16 @@ head.color("black")
 head.penup()  #no drawing when moving
 head.goto(0,0)
 head.direction = "stop"
+
+# Snake food
+
+food = turtle.Turtle()
+food.speed(0)
+food.shape("circle")
+food.color("red")
+food.penup()  #no drawing when moving
+food.goto(0,100)
+
 
 #Functions
 
@@ -73,6 +83,11 @@ window.onkeypress(go_right, "d")
 while True:
     window.update() 
 
+    if head.distance(food) < 20:
+        #Move the food to a random spot
+        x = random.randint(-290,290)
+        y = random.randint(-290, 290)
+        food.goto(x, y)
     move()
 
     time.sleep(delay)
