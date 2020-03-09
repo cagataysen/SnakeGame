@@ -4,6 +4,12 @@ import time
 import random
 delay = 0.1 
 
+#Score
+
+score = 0
+high_score = 0
+
+
 
 #Set up the screen
 
@@ -34,6 +40,16 @@ food.goto(0,100)
 
 
 segments = []
+
+#Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.shape("square")
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "normal"))
 
 
 #Functions
@@ -96,7 +112,22 @@ while True:
         head.goto(0,0)
         head.direction = "stop"
 
-     
+    #Hide the segments
+        for segment in segments:
+            segment.goto(1000, 1000)
+
+        #Clear the segments list
+        segments.clear()
+
+         #Reset the score
+        score = 0
+
+        #Reset the delay
+        delay = 0.1
+        
+        pen.clear()
+        pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal") )
+
 
 
 
@@ -114,6 +145,17 @@ while True:
         new_segment.color("grey")
         new_segment.penup()
         segments.append(new_segment)
+
+        #Shorten the delay
+        delay -= 0.001
+
+        # Increase the score
+        score = score + 10 
+
+        if score > high_score:
+            high_score = score
+        pen.clear()
+        pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal") )
 
         #Move the end segments first in reverse order
 
